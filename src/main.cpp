@@ -14,6 +14,8 @@ int main(int argc, char *args[])
 
     RenderWindow window("GAME v1.0", 1280, 720);
 
+    SDL_Texture *backgroundTexture = window.loadTexture("res/gfx/background.png");
+
     bool gameRunning = true;
 
     SDL_Event event;
@@ -25,6 +27,10 @@ int main(int argc, char *args[])
             if (event.type == SDL_QUIT)
                 gameRunning = false;
         }
+
+        window.clear();
+        window.render(backgroundTexture);
+        window.display();
     }
 
     window.cleanUp();
