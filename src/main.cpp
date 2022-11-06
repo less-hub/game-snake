@@ -1,9 +1,11 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <iostream>
+#include <vector>
 
 #include "RenderWindow.hpp"
 #include "Entity.hpp"
+#include "Math.hpp"
 
 int main(int argc, char *args[])
 {
@@ -15,9 +17,21 @@ int main(int argc, char *args[])
 
     RenderWindow window("GAME v1.0", 1280, 720);
 
-    SDL_Texture *backgroundTexture = window.loadTexture("res/gfx/wall.png");
+    SDL_Texture *wallTexture = window.loadTexture("res/gfx/wall.png");
+    SDL_Texture *bgTexture = window.loadTexture("res/gfx/background.png");
 
-    Entity bg0(400, 400, backgroundTexture);
+    std::vector<Entity> board;
+
+    for (int i = 0; i < 1280; i += 16)
+    {
+        for (int j = 0; j < 720; j += 16)
+        {
+            if (i == 0 || i == 1280 - 16 || j == 0 || j == 720 - 16)
+                board.push_back(Entity(Vector2f(i, j), wallTexture));
+            else
+                board.push_back(Entity(Vector2f(i, j), bgTexture));
+        }
+    }
 
     bool gameRunning = true;
 
@@ -32,7 +46,12 @@ int main(int argc, char *args[])
         }
 
         window.clear();
-        window.render(bg0);
+
+        for (Entity &cell : board)
+        {
+            window.render(cell);
+        }
+
         window.display();
     }
 
