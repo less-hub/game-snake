@@ -1,0 +1,72 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Debug",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "-c",
+        "${workspaceFolder}/src/*.cpp",
+        "-std=c++17",
+        "-g",
+        "-Wall",
+        "-m64",
+        "-I",
+        "include",
+        "-I",
+        "C:/dev/SDL2/include",
+        "&&",
+        "g++",
+        "${workspaceFolder}/*.o",
+        "-o",
+        "bin/debug/main",
+        "-L",
+        "C:/dev/SDL2/lib",
+        "-lmingw32",
+        "-lSDL2main",
+        "-lSDL2",
+        "-lSDL2_image",
+        "&&",
+        "start",
+        "bin/debug/main"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "Release",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "-c",
+        "${workspaceFolder}/src/*.cpp",
+        "-std=c++17",
+        "-O3",
+        "-Wall",
+        "-m64",
+        "-I",
+        "include",
+        "-I",
+        "C:/dev/SDL2/include",
+        "&&",
+        "g++",
+        "${workspaceFolder}/*.o",
+        "-o",
+        "bin/release/main",
+        "-s",
+        "-L",
+        "C:/dev/SDL2/lib",
+        "-lmingw32",
+        "-lSDL2main",
+        "-lSDL2",
+        "-lSDL2_image",
+        "&&",
+        "start",
+        "bin/release/main"
+      ],
+      "group": "build"
+    }
+  ]
+}
