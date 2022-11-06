@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "RenderWindow.hpp"
+#include "Entity.hpp"
 
 int main(int argc, char *args[])
 {
@@ -14,7 +15,9 @@ int main(int argc, char *args[])
 
     RenderWindow window("GAME v1.0", 1280, 720);
 
-    SDL_Texture *backgroundTexture = window.loadTexture("res/gfx/background.png");
+    SDL_Texture *backgroundTexture = window.loadTexture("res/gfx/wall.png");
+
+    Entity bg0(400, 400, backgroundTexture);
 
     bool gameRunning = true;
 
@@ -29,7 +32,7 @@ int main(int argc, char *args[])
         }
 
         window.clear();
-        window.render(backgroundTexture);
+        window.render(bg0);
         window.display();
     }
 
